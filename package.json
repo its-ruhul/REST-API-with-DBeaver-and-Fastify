@@ -1,0 +1,24 @@
+{
+  "name": "rest-api-with-dbeaver-and-fastify",
+  "version": "1.0.0",
+  "description": "Rest API built with Fastify with a connection to DBeaver based PostgreSQL server",
+  "homepage": "https://github.com/its-ruhul/REST-API-with-DBeaver-and-Fastify#readme",
+  "bugs": {
+    "url": "https://github.com/its-ruhul/REST-API-with-DBeaver-and-Fastify/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/its-ruhul/REST-API-with-DBeaver-and-Fastify.git"
+  },
+  "license": "ISC",
+  "author": "Ruhul Amin",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node --env-file=.env server.js",
+    "dev": "node --env-file=.env --watch server.js"
+  },
+  "dependencies": {
+    "fastify": "5.11.2"
+  }
+}
