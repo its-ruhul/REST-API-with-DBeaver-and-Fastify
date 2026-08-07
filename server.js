@@ -1,6 +1,6 @@
 import Fastify from "fastify";
 import fastifyPostgres from "@fastify/postgres";
-import { todoRoutes } from "./routes/todo-route";
+import { todoRoutes } from "./routes/todo-route.js";
 
 const PORT = process.env.PORT || 3000;
 

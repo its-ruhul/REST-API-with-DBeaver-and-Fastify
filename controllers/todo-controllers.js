@@ -1,8 +1,8 @@
 export const getTodoList = async (req, reply) => {
 
-  const { rows } = await req.server.pg.query();
+  const { rows } = await req.server.pg.query('select body, created_at from todo_info where is_active = true ');
 
-  return reply.status(201).send();
+  return reply.status(201).send(rows);
 
 }
 

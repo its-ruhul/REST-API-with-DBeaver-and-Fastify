@@ -5,7 +5,7 @@ import {
   updateTodoOpts,
   finishTodoOpts,
   deleteTodoOpts
-} from '../schemas/todo-schemas'
+} from '../schemas/todo-schemas.js'
 
 import fastify from "fastify";
 

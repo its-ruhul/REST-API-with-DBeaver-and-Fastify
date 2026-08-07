@@ -5,21 +5,32 @@ import {
   updateTodo,
   finishTodo,
   deleteTodo 
-} from "../controllers/todo-controllers";
+} from "../controllers/todo-controllers.js";
+
+const itemResponse = {
+  type: 'object',
+  properties: {
+    body: {type: 'string'},
+    created_at: {type: 'string'},
+  }
+}
 
 export const getTodoListOpts = {
   schema: {
     respose: {
-
+      200: {
+        type: 'array',
+        items: itemResponse
+      }
     }
 
   },
   handler: getTodoList
 }
 
-export const getFilteredListOps = {
+export const getFilteredListOpts = {
   schema: {
-    params: todoStatParams,
+    // params: todoStatParams,
     response: {
 
     }
@@ -30,7 +41,7 @@ export const getFilteredListOps = {
 
 export const postTodoOpts = {
   schema: {
-    body: todoBody,
+    // body: todoBody,
     reponse: {
 
     }
@@ -41,7 +52,7 @@ export const postTodoOpts = {
 
 export const updateTodoOpts = {
   schema: {
-    body: todoBodyToUpdate,
+    // body: todoBodyToUpdate,
     reponse: {
 
     }
@@ -52,7 +63,7 @@ export const updateTodoOpts = {
 
 export const finishTodoOpts = {
   schema: {
-    body: todoBodyWithId,
+    // body: todoBodyWithId,
     reponse: {
 
     }
@@ -63,7 +74,7 @@ export const finishTodoOpts = {
 
 export const deleteTodoOpts = {
   schema: {
-    body: todoBodyWithId,
+    // body: todoBodyWithId,
     response: {
 
     }
