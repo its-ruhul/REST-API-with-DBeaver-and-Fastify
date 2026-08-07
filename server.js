@@ -11,7 +11,10 @@ const fastify = Fastify({
 fastify.register(todoRoutes);
 
 fastify.register(fastifyPostgres, {
-  connectionString: process.env.DATABASE_URL
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 })
 
 const start = async () => {

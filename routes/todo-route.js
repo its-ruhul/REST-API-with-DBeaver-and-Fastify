@@ -18,7 +18,7 @@ export function todoRoutes(fastify, options, done) {
   fastify.get('/list/:stat', getFilteredListOpts)
   
   //Post a new Todo
-  fastify.post('/post', postTodoOpts);
+  fastify.post('/list', postTodoOpts);
 
   //Update and existing Todo
   fastify.put('/update', updateTodoOpts);

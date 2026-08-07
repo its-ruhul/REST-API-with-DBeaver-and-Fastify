@@ -11,7 +11,33 @@ const itemResponse = {
   type: 'object',
   properties: {
     body: {type: 'string'},
+    stat: {type: 'string'},
     created_at: {type: 'string'},
+    todo_uuid: {type: 'string'}
+  }
+}
+
+const todoStatParams = {
+  type: 'object',
+  required: ['stat'],
+  properties: {
+    stat: {
+      type: 'string'
+    }
+  }
+
+}
+
+const postTodoBody = {
+  type: 'object',
+  required: ['body', 'stat'],
+  properties: {
+    body: {
+      type: 'string'
+    },
+    stat: {
+      type: 'string'
+    }
   }
 }
 
@@ -23,29 +49,29 @@ export const getTodoListOpts = {
         items: itemResponse
       }
     }
-
   },
   handler: getTodoList
 }
 
 export const getFilteredListOpts = {
   schema: {
-    // params: todoStatParams,
+    params: todoStatParams,
     response: {
-
+      200: {
+        type: 'array',
+        items: itemResponse
+      }
     }
-
   },
   handler: getFilteredList
 }
 
 export const postTodoOpts = {
   schema: {
-    // body: todoBody,
+    body: postTodoBody,
     reponse: {
-
+      200: itemResponse
     }
-
   },
   handler: postTodo
 }
