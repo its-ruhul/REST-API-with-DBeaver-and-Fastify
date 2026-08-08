@@ -22,7 +22,7 @@ const signInBody = {
 const loginResponse = {
   type: 'object',
   properties: {
-    //username: {type: 'string'}
+    token: {type: 'string'}
   }
 }
 
