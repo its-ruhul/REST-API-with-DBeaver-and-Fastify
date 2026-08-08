@@ -13,7 +13,8 @@ const itemResponse = {
     body: {type: 'string'},
     stat: {type: 'string'},
     created_at: {type: 'string'},
-    todo_uuid: {type: 'string'}
+    todo_uuid: {type: 'string'},
+    is_finished: {type: 'bool'}
   }
 }
 
@@ -25,7 +26,6 @@ const todoStatParams = {
       type: 'string'
     }
   }
-
 }
 
 const postTodoBody = {
@@ -37,6 +37,43 @@ const postTodoBody = {
     },
     stat: {
       type: 'string'
+    }
+  }
+}
+
+const todoBodyToUpdate = {
+  type: 'object',
+  required: ['todo_uuid', 'body', 'stat'],
+  properties: {
+    body: {
+      type: 'string'
+    },
+    stat: {
+      type: 'string'
+    },
+    todo_uuid: {
+      type: 'string',
+      format: 'uuid'
+    }
+  }
+}
+
+const todoBodyById = {
+  type: 'object',
+  required: ['todo_uuid'],
+  properties: {
+    todo_uuid: {
+      type: 'string',
+      format: 'uuid'
+    }
+  }
+}
+
+const deleteTodoCheck = {
+  type: 'object',
+  properties: {
+    is_active: {
+      type: 'bool'
     }
   }
 }
@@ -70,7 +107,7 @@ export const postTodoOpts = {
   schema: {
     body: postTodoBody,
     reponse: {
-      200: itemResponse
+      201: itemResponse
     }
   },
   handler: postTodo
@@ -78,33 +115,30 @@ export const postTodoOpts = {
 
 export const updateTodoOpts = {
   schema: {
-    // body: todoBodyToUpdate,
+    body: todoBodyToUpdate,
     reponse: {
-
+      201: itemResponse, 
     }
-
   },
   handler: updateTodo
 }
 
 export const finishTodoOpts = {
   schema: {
-    // body: todoBodyWithId,
+    body: todoBodyById,
     reponse: {
-
+      201: itemResponse
     }
-
   },
   handler: finishTodo
 }
 
 export const deleteTodoOpts = {
   schema: {
-    // body: todoBodyWithId,
+    body: todoBodyById,
     response: {
-
+      201: deleteTodoCheck
     }
-
   },
   handler: deleteTodo
 }
