@@ -79,7 +79,6 @@ export const getTodoListOpts = {
       }
     }
   },
-  preHandler: [authenticate],
   handler: getTodoList
 }
 
@@ -93,7 +92,6 @@ export const getFilteredListOpts = {
       }
     }
   },
-  preHandler: [authenticate],
   handler: getFilteredList
 }
 
@@ -104,7 +102,6 @@ export const postTodoOpts = {
       201: itemResponse
     }
   },
-  preHandler: [authenticate],
   handler: postTodo
 }
 
@@ -115,7 +112,6 @@ export const updateTodoOpts = {
       201: itemResponse,
     }
   },
-  preHandler: [authenticate],
   handler: updateTodo
 }
 
@@ -126,7 +122,6 @@ export const finishTodoOpts = {
       201: itemResponse
     }
   },
-  preHandler: [authenticate],
   handler: finishTodo
 }
 
@@ -137,6 +132,5 @@ export const deleteTodoOpts = {
       201: deleteTodoCheck
     }
   },
-  preHandler: [authenticate],
   handler: deleteTodo
 }

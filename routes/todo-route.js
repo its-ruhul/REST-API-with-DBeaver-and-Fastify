@@ -1,22 +1,24 @@
 import {
-  getTodoListOpts, 
-  getFilteredListOpts, 
-  postTodoOpts, 
+  getTodoListOpts,
+  getFilteredListOpts,
+  postTodoOpts,
   updateTodoOpts,
   finishTodoOpts,
   deleteTodoOpts
 } from '../schemas/todo-schemas.js'
 
-import fastify from "fastify";
+import { authenticate } from '../middleware/auth-hook.js';
 
 export function todoRoutes(fastify, options, done) {
+
+  fastify.addHook('preHandler', authenticate);
 
   //Get a list of all the Todos
   fastify.get('/list', getTodoListOpts);
 
   //Get list of Todos based on: Urgent and Important, Urgent, Important
   fastify.get('/list/:stat', getFilteredListOpts)
-  
+
   //Post a new Todo
   fastify.post('/list', postTodoOpts);
 
