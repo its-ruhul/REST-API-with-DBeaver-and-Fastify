@@ -1,8 +1,13 @@
 export const getTodoList = async (req, reply) => {
 
+  const { user } = req.user;
+
   const { rows } = await req.server.pg.query(`
-    select body, stat, created_at, todo_uuid, is_finished from todo_info 
-    where is_active = true;
+    select t.body, t.stat, t.created_at, t.todo_uuid, t.is_finished 
+    from todo_info t
+    join users u
+    on t.user_id = u.id
+    where t.is_active = true;
   `);
 
   return reply.status(200).send(rows);
@@ -10,7 +15,7 @@ export const getTodoList = async (req, reply) => {
 
 export const getFilteredList = async (req, reply) => {
 
-  const {stat} = req.params;
+  const { stat } = req.params;
 
   const { rows } = await req.server.pg.query(`
     select body, stat, created_at, todo_uuid, is_finished from todo_info 
@@ -22,7 +27,7 @@ export const getFilteredList = async (req, reply) => {
 
 export const postTodo = async (req, reply) => {
 
-  const {body, stat} = req.body;
+  const { body, stat } = req.body;
 
   //TODO: After Authentication put the user_id
   const { rows } = await req.server.pg.query(`
@@ -50,8 +55,8 @@ export const updateTodo = async (req, reply) => {
 
 export const finishTodo = async (req, reply) => {
 
-  const {todo_uuid} = req.body;
-  
+  const { todo_uuid } = req.body;
+
   const { rows } = await req.server.pg.query(`
     update todo_info
     set is_finished = true

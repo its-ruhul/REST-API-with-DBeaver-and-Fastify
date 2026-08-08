@@ -7,6 +7,8 @@ import {
   deleteTodo
 } from "../controllers/todo-controllers.js";
 
+import { authenticate } from '../middleware/auth-hook.js';
+
 const itemResponse = {
   type: 'object',
   properties: {
@@ -45,16 +47,9 @@ const todoBodyToUpdate = {
   type: 'object',
   required: ['todo_uuid', 'body', 'stat'],
   properties: {
-    body: {
-      type: 'string'
-    },
-    stat: {
-      type: 'string'
-    },
-    todo_uuid: {
-      type: 'string',
-      format: 'uuid'
-    }
+    body: { type: 'string' },
+    stat: { type: 'string' },
+    todo_uuid: { type: 'string', format: 'uuid' }
   }
 }
 
@@ -62,19 +57,14 @@ const todoBodyById = {
   type: 'object',
   required: ['todo_uuid'],
   properties: {
-    todo_uuid: {
-      type: 'string',
-      format: 'uuid'
-    }
+    todo_uuid: { type: 'string', format: 'uuid' }
   }
 }
 
 const deleteTodoCheck = {
   type: 'object',
   properties: {
-    is_active: {
-      type: 'boolean'
-    }
+    is_active: { type: 'boolean' }
   }
 }
 
@@ -89,6 +79,7 @@ export const getTodoListOpts = {
       }
     }
   },
+  preHandler: [authenticate],
   handler: getTodoList
 }
 
@@ -102,6 +93,7 @@ export const getFilteredListOpts = {
       }
     }
   },
+  preHandler: [authenticate],
   handler: getFilteredList
 }
 
@@ -112,6 +104,7 @@ export const postTodoOpts = {
       201: itemResponse
     }
   },
+  preHandler: [authenticate],
   handler: postTodo
 }
 
@@ -122,6 +115,7 @@ export const updateTodoOpts = {
       201: itemResponse,
     }
   },
+  preHandler: [authenticate],
   handler: updateTodo
 }
 
@@ -132,6 +126,7 @@ export const finishTodoOpts = {
       201: itemResponse
     }
   },
+  preHandler: [authenticate],
   handler: finishTodo
 }
 
@@ -142,5 +137,6 @@ export const deleteTodoOpts = {
       201: deleteTodoCheck
     }
   },
+  preHandler: [authenticate],
   handler: deleteTodo
 }
