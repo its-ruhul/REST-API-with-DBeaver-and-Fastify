@@ -19,7 +19,9 @@
     "dev": "node --env-file=.env --watch server.js"
   },
   "dependencies": {
+    "@fastify/jwt": "10.2.1",
     "@fastify/postgres": "6.1.0",
+    "bcrypt": "6.0.0",
     "fastify": "5.11.2"
   }
 }

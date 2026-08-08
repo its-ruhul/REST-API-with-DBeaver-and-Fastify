@@ -1,6 +1,7 @@
 import Fastify from "fastify";
 import fastifyPostgres from "@fastify/postgres";
 import { todoRoutes } from "./routes/todo-route.js";
+import { authRoutes } from "./routes/auth-routes.js";
 
 const PORT = process.env.PORT || 3000;
 
@@ -9,6 +10,7 @@ const fastify = Fastify({
 });
 
 fastify.register(todoRoutes);
+fastify.register(authRoutes);
 
 fastify.register(fastifyPostgres, {
   connectionString: process.env.DATABASE_URL,

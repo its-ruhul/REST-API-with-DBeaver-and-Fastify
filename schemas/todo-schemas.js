@@ -1,20 +1,20 @@
-import { 
-  getTodoList, 
-  getFilteredList, 
-  postTodo, 
+import {
+  getTodoList,
+  getFilteredList,
+  postTodo,
   updateTodo,
   finishTodo,
-  deleteTodo 
+  deleteTodo
 } from "../controllers/todo-controllers.js";
 
 const itemResponse = {
   type: 'object',
   properties: {
-    body: {type: 'string'},
-    stat: {type: 'string'},
-    created_at: {type: 'string'},
-    todo_uuid: {type: 'string'},
-    is_finished: {type: 'bool'}
+    body: { type: 'string' },
+    stat: { type: 'string' },
+    created_at: { type: 'string' },
+    todo_uuid: { type: 'string' },
+    is_finished: { type: 'boolean' }
   }
 }
 
@@ -73,14 +73,16 @@ const deleteTodoCheck = {
   type: 'object',
   properties: {
     is_active: {
-      type: 'bool'
+      type: 'boolean'
     }
   }
 }
 
+//SCHEMAS
+
 export const getTodoListOpts = {
   schema: {
-    respose: {
+    response: {
       200: {
         type: 'array',
         items: itemResponse
@@ -106,7 +108,7 @@ export const getFilteredListOpts = {
 export const postTodoOpts = {
   schema: {
     body: postTodoBody,
-    reponse: {
+    response: {
       201: itemResponse
     }
   },
@@ -116,8 +118,8 @@ export const postTodoOpts = {
 export const updateTodoOpts = {
   schema: {
     body: todoBodyToUpdate,
-    reponse: {
-      201: itemResponse, 
+    response: {
+      201: itemResponse,
     }
   },
   handler: updateTodo
@@ -126,7 +128,7 @@ export const updateTodoOpts = {
 export const finishTodoOpts = {
   schema: {
     body: todoBodyById,
-    reponse: {
+    response: {
       201: itemResponse
     }
   },
