@@ -11,7 +11,10 @@ const fastify = Fastify({
 });
 
 fastify.register(fastifyJwt, {
-  secret: process.env.SECRET_KEY
+  secret: process.env.SECRET_KEY,
+  sign: {
+    expiresIn: '15m'
+  }
 });
 
 fastify.register(todoRoutes);

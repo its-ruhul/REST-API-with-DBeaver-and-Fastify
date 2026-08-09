@@ -1,11 +1,11 @@
-import {loginAccount, signInAccount} from '../controllers/auth-controllers.js'
+import { loginAccount, signInAccount } from '../controllers/auth-controllers.js'
 
 const loginBody = {
   type: 'object',
   required: ['username', 'password'],
   properties: {
-    username: {type: 'string'},
-    password: {type: 'string'}
+    username: { type: 'string' },
+    password: { type: 'string' }
   }
 }
 
@@ -13,16 +13,16 @@ const signInBody = {
   type: 'object',
   required: ['username', 'password', 'emailid'],
   properties: {
-    username: {type: 'string'},
-    password: {type: 'string'},
-    emailid: {type: 'string'}
+    username: { type: 'string', minLength: 4, maxLength: 12 },
+    password: { type: 'string', minLength: 8, maxLength: 24 },
+    emailid: { type: 'string', format: 'email' }
   }
 }
 
 const loginResponse = {
   type: 'object',
   properties: {
-    token: {type: 'string'}
+    token: { type: 'string' }
   }
 }
 
@@ -42,7 +42,7 @@ export const signInAccountOpts = {
   schema: {
     body: signInBody,
     response: {
-      201: loginResponse 
+      201: loginResponse
     }
   },
   handler: signInAccount
