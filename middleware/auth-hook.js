@@ -3,6 +3,6 @@ export const authenticate = async (req, reply) => {
     await req.jwtVerify();
   }
   catch (error) {
-    reply.code(500).send({ message: "Authentication Failed." });
+    return reply.code(401).send({ message: "Authentication Failed.", error: error.message });
   }
 }

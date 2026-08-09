@@ -10,12 +10,12 @@ const fastify = Fastify({
   logger: true
 });
 
-fastify.register(todoRoutes);
-fastify.register(authRoutes);
-
 fastify.register(fastifyJwt, {
   secret: process.env.SECRET_KEY
 });
+
+fastify.register(todoRoutes);
+fastify.register(authRoutes);
 
 fastify.register(fastifyPostgres, {
   connectionString: process.env.DATABASE_URL,

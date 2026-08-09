@@ -7,8 +7,6 @@ import {
   deleteTodo
 } from "../controllers/todo-controllers.js";
 
-import { authenticate } from '../middleware/auth-hook.js';
-
 const itemResponse = {
   type: 'object',
   properties: {

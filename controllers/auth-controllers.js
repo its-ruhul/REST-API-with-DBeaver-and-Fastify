@@ -12,17 +12,17 @@ export const loginAccount = async (req, reply) => {
   const user = result.rows[0];
 
   if (!user) {
-    reply.code(401).reply({ message: "No user found." });
+    return reply.code(401).send({ message: "No user found." });
   }
 
   const isMatch = await bcrypt.compare(password, user.password_hash);
 
   if (!isMatch) {
-    reply.code(401).reply({ message: "Invalid password." });
+    return reply.code(401).send({ message: "Invalid password." });
   }
 
   const payLoad = {
-    id: user.id,
+    id: user.user_id,
     email: user.email_id,
     role: 'user'
   }

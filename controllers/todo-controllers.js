@@ -1,14 +1,19 @@
 export const getTodoList = async (req, reply) => {
 
-  const { user } = req.user;
+  const { id } = req.user;
 
   const { rows } = await req.server.pg.query(`
-    select t.body, t.stat, t.created_at, t.todo_uuid, t.is_finished 
+    select 
+      t.body as body, 
+      t.stat as stat, 
+      t.created_at as created_at, 
+      t.todo_uuid as todo_uuid, 
+      t.is_finished as is_finished
     from todo_info t
     join users u
     on t.user_id = u.id
-    where t.is_active = true;
-  `);
+    where t.is_active = true and u.user_id = $1;
+  `, [id]);
 
   return reply.status(200).send(rows);
 }
@@ -16,25 +21,35 @@ export const getTodoList = async (req, reply) => {
 export const getFilteredList = async (req, reply) => {
 
   const { stat } = req.params;
+  const { id } = req.user;
 
   const { rows } = await req.server.pg.query(`
-    select body, stat, created_at, todo_uuid, is_finished from todo_info 
-    where is_active = true and stat = $1;
-  `, [stat]);
+    select 
+      t.body as body, 
+      t.stat as stat, 
+      t.created_at as created_at, 
+      t.todo_uuid as todo_uuid, 
+      t.is_finished as is_finished
+    from todo_info t
+    join users u
+    on t.user_id = u.id
+    where t.is_active = true and t.stat = $1 and u.user_id = $2;
+  `, [stat, id]);
 
   return reply.status(200).send(rows);
 }
 
+//TODO: Update SQL to be in line with authentication
 export const postTodo = async (req, reply) => {
 
+  const { id } = req.user;
   const { body, stat } = req.body;
 
-  //TODO: After Authentication put the user_id
   const { rows } = await req.server.pg.query(`
     insert into todo_info(user_id, body, stat)
-    values (1, $1, $2)
-    returning  body, stat, created_at, todo_uuid, is_finished;
-  `, [body, stat]);
+    values ($1, $2, $3)
+    returning body, stat, created_at, todo_uuid, is_finished;
+  `, [id, body, stat]);
 
   return reply.status(201).send(rows[0]);
 }
